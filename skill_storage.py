@@ -1,4 +1,17 @@
 import json
+from dataclasses import dataclass
+from typing import List
+
+@dataclass
+class SilkSkill:
+    """a representation of a single skill"""
+    name: str
+    description: str
+    prerequisites: List[str]
+    aliases: List[str] = None
+    level: str = 'Unknown'
+    media: List[str] = None
+
 
 class FileStorage(object):
     """Stores skills to a file"""
@@ -8,6 +21,7 @@ class FileStorage(object):
 
     def list_skills(self):
         # TODO memoize?
+        # TODO handle malformed input
         with open(self.file_name) as f:
             data = json.load(f)
         if data is None:
